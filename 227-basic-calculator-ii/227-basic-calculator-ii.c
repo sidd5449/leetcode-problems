@@ -1,61 +1,64 @@
-struct Stack_t
+
+
+
+struct stack_t
 {
-    int Data[100000];
+    int data[100000];
     int top;
 };
 
-void push(struct Stack_t *Stack, int Num)
-{
-    Stack->Data[++Stack->top] = Num;
-}
+void push(struct stack_t *stack, int num){
+    stack->data[++stack->top] = num;
+};
 
-int pop(struct Stack_t *Stack)
-{
-    return Stack->Data[Stack->top--];
-}
+int pop(struct stack_t *stack){
+    return stack->data[stack->top--];
+};
 
-int calculate(char *s)
-{
-    char prevOP, Ch;
+
+int calculate(char * s){
+    char prevOp, Ch;
     int i;
-    long currNUM;
-    struct Stack_t Stack;
+    long currNum; 
+    struct stack_t stack;
     
-    prevOP = Ch = '+';
-    currNUM = i = 0;
-    Stack.top = -1;
+    prevOp = Ch = '+';
+    currNum = i = 0;
+    stack.top = -1;
     
-    while ('\0' != Ch)
-    {
+    while('\0' !=Ch){
+        
         Ch = s[i];
-        if (' ' == Ch) {}
-        else if ('0' <= Ch && '9' >= Ch)
-            currNUM = currNUM * 10 + Ch - '0';
-        else
-        {
-            switch (prevOP)
-            {
-            case ('-'):
-                currNUM = -currNUM;
-            case ('+'):
-                push(&Stack, currNUM);
-                break;
-            case ('/'):
-                push(&Stack, pop(&Stack) / currNUM);
-                break;
-            case ('*'):
-                push(&Stack, pop(&Stack) * currNUM);
+        if(' ' == Ch){}
+        
+        else if('0' <= Ch && '9' >= Ch)
+            currNum = currNum*10 + Ch - '0';
+        else{
+            switch(prevOp){
+                    case('-'):
+                        currNum=-currNum;
+                    
+                    case ('+'):
+                        push(&stack, currNum);
+                        break;
+                    case ('/'):
+                        push(&stack, pop(&stack) / currNum);
+                        break;
+                    case ('*'):
+                        push(&stack, pop(&stack) * currNum);
+                    
+                    
             }
-            prevOP = Ch;
-            currNUM = 0;
+            prevOp = Ch;
+            currNum = 0;
         }
-        ++i;
+        i++;
     }
-
     int res = 0;
-    for (i = 0; i <= Stack.top; ++i)
-    {
-        res += Stack.Data[i];
+    for(i=0; i<=stack.top; i++){
+        res+= stack.data[i];
     }
+    
     return res;
+    
 }
