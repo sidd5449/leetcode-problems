@@ -1,1 +1,1 @@
-​
+Store the count of each number in an array. and then check if the count is even or not. First function increases the value of the element in ith index of arr. So if there are 4 2's, the value at the 2nd index of arr will be 4.
